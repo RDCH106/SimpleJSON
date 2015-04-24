@@ -338,6 +338,21 @@ JSONValue::JSONValue(const std::wstring &m_string_value)
 }
 
 /**
+ * Basic constructor for creating a JSON Value of type String
+ *
+ * @access public
+ *
+ * @param std::string m_string_value The string to use as the value
+ */
+JSONValue::JSONValue(const std::string &m_string_value)
+{
+	wchar_t wstr[2048];  //Internal buffer of 2048 chars
+	mbstowcs(wstr, m_string_value.c_str(), sizeof(wstr));  
+	type = JSONType_String;
+	string_value = std::wstring(wstr);
+}
+
+/**
  * Basic constructor for creating a JSON Value of type Bool
  *
  * @access public
@@ -496,6 +511,25 @@ bool JSONValue::IsObject() const
 const std::wstring &JSONValue::AsString() const
 {
 	return string_value;
+}
+
+/**
+ * Retrieves the String value of this JSONValue
+ * Use IsString() before using this method.
+ *
+ * @access public
+ *
+ * @return std::string Returns the string value
+ */
+const std::string JSONValue::AsCharString() const
+{
+	char buffer [2048]; //Internal buffer of 2048 chars
+	wcstombs(buffer, string_value.c_str(), sizeof(buffer));
+	std::stringstream ss;
+	std::string s;
+	ss << buffer;
+	ss >> s;
+	return s;
 }
 
 /**
@@ -694,6 +728,25 @@ std::wstring JSONValue::Stringify(bool const prettyprint) const
 {
 	size_t const indentDepth = prettyprint ? 1 : 0;
 	return StringifyImpl(indentDepth);
+}
+
+/**
+ * Creates a JSON encoded string for the value with all necessary characters escaped
+ *
+ * @access public
+ *
+ * @param bool prettyprint Enable prettyprint
+ *
+ * @return std::wstring Returns the JSON string
+ */
+std::string JSONValue::StringifyToString(bool const prettyprint) const
+{
+	size_t const indentDepth = prettyprint ? 1 : 0;
+						 
+	char buffer [4096]; //Internal buffer of 4096 chars
+	wcstombs(buffer, StringifyImpl(indentDepth).c_str(), sizeof(buffer));
+	
+	return buffer;
 }
 
 

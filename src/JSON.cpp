@@ -122,6 +122,28 @@ std::wstring JSON::Stringify(const JSONValue *value)
 }
 
 /**
+ * Turns the passed in JSONValue into a JSON encode string
+ *
+ * @access public
+ *
+ * @param JSONValue* value The root value
+ *
+ * @return std::string Returns a JSON encoded string representation of the given value
+ */
+std::string JSON::StringifyToString(const JSONValue *value)
+{
+	if (value != NULL){
+					 
+		char buffer [4096]; //Internal buffer of 4096 chars
+		wcstombs(buffer, value->Stringify().c_str(), sizeof(buffer));
+		return buffer;
+	}
+		
+	else
+		return "";
+}
+
+/**
  * Skips over any whitespace characters (space, tab, \r or \n) defined by the JSON spec
  *
  * @access protected

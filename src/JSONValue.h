@@ -42,6 +42,7 @@ class JSONValue
 		JSONValue(/*NULL*/);
 		JSONValue(const wchar_t *m_char_value);
 		JSONValue(const std::wstring &m_string_value);
+		JSONValue(const std::string &m_string_value);
 		JSONValue(bool m_bool_value);
 		JSONValue(double m_number_value);
 		JSONValue(const JSONArray &m_array_value);
@@ -56,6 +57,7 @@ class JSONValue
 		bool IsObject() const;
 
 		const std::wstring &AsString() const;
+		const std::string AsCharString() const;
 		bool AsBool() const;
 		double AsNumber() const;
 		const JSONArray &AsArray() const;
@@ -69,6 +71,7 @@ class JSONValue
 		std::vector<std::wstring> ObjectKeys() const;
 
 		std::wstring Stringify(bool const prettyprint = false) const;
+		std::string StringifyToString(bool const prettyprint = false) const;
 
 	protected:
 		static JSONValue *Parse(const wchar_t **data);
