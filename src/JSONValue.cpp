@@ -525,11 +525,8 @@ const std::string JSONValue::AsCharString() const
 {
 	char buffer [2048]; //Internal buffer of 2048 chars
 	wcstombs(buffer, string_value.c_str(), sizeof(buffer));
-	std::stringstream ss;
-	std::string s;
-	ss << buffer;
-	ss >> s;
-	return s;
+
+	return buffer;
 }
 
 /**
