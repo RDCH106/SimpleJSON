@@ -134,9 +134,9 @@ std::string JSON::StringifyToString(const JSONValue *value)
 {
 	if (value != NULL){
 					 
-		char buffer [4096]; //Internal buffer of 4096 chars
-		wcstombs(buffer, value->Stringify().c_str(), sizeof(buffer));
-		return buffer;
+		std::string result;
+		result.assign(value->Stringify().begin(), value->Stringify().end());
+		return result;
 	}
 		
 	else

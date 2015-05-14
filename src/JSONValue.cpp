@@ -523,10 +523,9 @@ const std::wstring &JSONValue::AsString() const
  */
 const std::string JSONValue::AsCharString() const
 {
-	char buffer [2048]; //Internal buffer of 2048 chars
-	wcstombs(buffer, string_value.c_str(), sizeof(buffer));
-
-	return buffer;
+	std::string result;
+	result.assign(string_value.begin(), string_value.end());
+	return result;
 }
 
 /**
@@ -740,10 +739,10 @@ std::string JSONValue::StringifyToString(bool const prettyprint) const
 {
 	size_t const indentDepth = prettyprint ? 1 : 0;
 						 
-	char buffer [4096]; //Internal buffer of 4096 chars
-	wcstombs(buffer, StringifyImpl(indentDepth).c_str(), sizeof(buffer));
-	
-	return buffer;
+	std::wstring data = StringifyImpl(indentDepth);
+	std::string result;
+	result.assign(data.begin(), data.end());
+	return result;
 }
 
 
