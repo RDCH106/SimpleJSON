@@ -47,6 +47,7 @@ class JSONValue
 		JSONValue(double m_number_value);
 		JSONValue(const JSONArray &m_array_value);
 		JSONValue(const JSONObject &m_object_value);
+		JSONValue(const JSONValue &m_source);
 		~JSONValue();
 
 		bool IsNull() const;

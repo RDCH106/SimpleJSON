@@ -309,6 +309,8 @@ JSONValue *JSONValue::Parse(const wchar_t **data)
 JSONValue::JSONValue(/*NULL*/)
 {
 	type = JSONType_Null;
+	bool_value = false;
+	number_value = 0;
 }
 
 /**
@@ -322,6 +324,8 @@ JSONValue::JSONValue(const wchar_t *m_char_value)
 {
 	type = JSONType_String;
 	string_value = std::wstring(m_char_value);
+	bool_value = false;
+	number_value = 0;
 }
 
 /**
@@ -335,6 +339,8 @@ JSONValue::JSONValue(const std::wstring &m_string_value)
 {
 	type = JSONType_String;
 	string_value = m_string_value;
+	bool_value = false;
+	number_value = 0;
 }
 
 /**
@@ -363,6 +369,7 @@ JSONValue::JSONValue(bool m_bool_value)
 {
 	type = JSONType_Bool;
 	bool_value = m_bool_value;
+	number_value = 0;
 }
 
 /**
@@ -376,6 +383,7 @@ JSONValue::JSONValue(double m_number_value)
 {
 	type = JSONType_Number;
 	number_value = m_number_value;
+	bool_value = false;
 }
 
 /**
@@ -389,6 +397,8 @@ JSONValue::JSONValue(const JSONArray &m_array_value)
 {
 	type = JSONType_Array;
 	array_value = m_array_value;
+	bool_value = false;
+	number_value = 0;
 }
 
 /**
@@ -402,6 +412,60 @@ JSONValue::JSONValue(const JSONObject &m_object_value)
 {
 	type = JSONType_Object;
 	object_value = m_object_value;
+	bool_value = false;
+	number_value = 0;
+}
+
+/**
+ * Copy constructor to perform a deep copy of array / object values
+ *
+ * @access public
+ *
+ * @param JSONValue m_source The source JSONValue that is being copied
+ */
+JSONValue::JSONValue(const JSONValue &m_source)
+{
+	type = m_source.type;
+
+	switch (type)
+	{
+		case JSONType_String:
+			string_value = m_source.string_value;
+			break;
+
+		case JSONType_Bool:
+			bool_value = m_source.bool_value;
+			break;
+
+		case JSONType_Number:
+			number_value = m_source.number_value;
+			break;
+
+		case JSONType_Array:
+		{
+			JSONArray source_array = m_source.array_value;
+			JSONArray::iterator iter;
+			for (iter = source_array.begin(); iter != source_array.end(); iter++)
+				array_value.push_back(new JSONValue(**iter));
+			break;
+		}
+
+		case JSONType_Object:
+		{
+			JSONObject source_object = m_source.object_value;
+			JSONObject::iterator iter;
+			for (iter = source_object.begin(); iter != source_object.end(); iter++)
+			{
+				std::wstring name = (*iter).first;
+				object_value[name] = new JSONValue(*((*iter).second));
+			}
+			break;
+		}
+
+		case JSONType_Null:
+			// Nothing to do.
+			break;
+	}
 }
 
 /**
@@ -899,14 +963,14 @@ std::wstring JSONValue::StringifyString(const std::wstring &str)
 }
 
 /**
-* Creates the indentation string for the depth given
-*
-* @access private
-*
-* @param size_t indent The prettyprint indentation depth (0 : no indentation)
-*
-* @return std::wstring Returns the string
-*/
+ * Creates the indentation string for the depth given
+ *
+ * @access private
+ *
+ * @param size_t indent The prettyprint indentation depth (0 : no indentation)
+ *
+ * @return std::wstring Returns the string
+ */
 std::wstring JSONValue::Indent(size_t depth)
 {
 	const size_t indent_step = 2;
