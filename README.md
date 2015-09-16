@@ -31,3 +31,13 @@ these are simply type definitions as outlined below:
 
 * JSONArray: std::vector<JSONValue*>
 * JSONObject: std::map<std::wstring, JSONValue*>
+
+Compiling crossplatform with CMake
+-------------------------------------
+
+1º Set this path in source
+2º Choose a toolchain if is needed and you IDE configuration (MSVS, Eclipse, Makefile...)
+3º Choose a path where set your build
+4º Configure & generate
+
+```

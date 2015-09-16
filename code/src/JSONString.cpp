@@ -1,4 +1,5 @@
 #include "JSONString.h"
+#include <string>
 
 void JSONString::startJSON()
 {
