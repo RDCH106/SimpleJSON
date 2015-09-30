@@ -35,9 +35,9 @@ these are simply type definitions as outlined below:
 Compiling crossplatform with CMake
 -------------------------------------
 
-1º Set this path in source
-2º Choose a toolchain if is needed and you IDE configuration (MSVS, Eclipse, Makefile...)
-3º Choose a path where set your build
-4º Configure & generate
+1. Set this path in source
+2. Choose a toolchain if is needed and your IDE configuration (MSVS, Eclipse, Makefile...)
+3. Choose the build path where the project will be built
+4. Configure & generate
 
-```
+
