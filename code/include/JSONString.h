@@ -19,10 +19,15 @@ public:
     void startArray();
     void finishArray();
 
-    void addInt(std::string id, int data);
+    void addBool(std::string id, int data);
+	void addInt(std::string id, int data);
     void addUnsignedInt(std::string id, unsigned int data);
+	void addFloat(std::string id, unsigned int data);
     void addString(std::string id, std::string data);
     void addArray(std::string id, std::string data);
+	void addArrayData(std::string data);
+	void addObject(std::string id, std::string data);
+	void addObjectData(std::string data);
 
     std::string getString() { return _jsonstring; };
     const char* getChar() { return _jsonstring.c_str(); };
