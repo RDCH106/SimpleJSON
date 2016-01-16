@@ -26,7 +26,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "../JSON.h"
+#include "JSON.h"
 #include "functions.h"
 
 using namespace std;
@@ -130,6 +130,9 @@ int main(int argc, char **argv)
 		wcout << endl;
 		wcout << L"Only one option can be used at a time." << endl;
 	}
+
+	printf("\n%s", "Press 'Enter' to continue: ... ");
+	while ( getchar() != '\n');
 
 	return 0;
 }

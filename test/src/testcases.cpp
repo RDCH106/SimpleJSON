@@ -31,7 +31,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include "../JSON.h"
+#include "JSON.h"
 #include "functions.h"
 
 // Set to the width of the description column

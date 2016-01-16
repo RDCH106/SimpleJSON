@@ -25,7 +25,7 @@
 #include <string>
 #include <sstream>
 #include <time.h>
-#include "../JSON.h"
+#include "JSON.h"
 #include "functions.h"
 
 using namespace std;
