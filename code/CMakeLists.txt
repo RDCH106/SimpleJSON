@@ -2,6 +2,7 @@
 #-----------------------------------------------------------------------#
 SET(PROJ_MAIN_NAME "simpleJSON")
 PROJECT(${PROJ_MAIN_NAME})
+MESSAGE(" + Adding ${PROJ_NAME} ")				# In info
 
 # Include directories with headers
 #-----------------------------------------------------------------------#
@@ -34,5 +35,5 @@ INSTALL(FILES ${${PROJ_MAIN_NAME}_HEADERS}
         DESTINATION "${${PROJ_MAIN_NAME}_PATH_INSTALL}/${PROJ_MAIN_NAME}/include"
         )
 
-#PRINTBASICINFO(${PROJ_NAME})						# Macro cmake_tools to print, uncomment to add info
-MESSAGE(" - Module ${PROJ_NAME} added!")					# Out info
+#PRINTBASICINFO(${PROJ_MAIN_NAME})						# Macro cmake_tools to print, uncomment to add info
+MESSAGE(" - Project ${PROJ_MAIN_NAME} added!")					# Out info

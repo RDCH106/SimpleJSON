@@ -2,7 +2,7 @@
 #-----------------------------------------------------------------------#
 SET(PROJ_NAME simpleJSON_test)
 PROJECT(${PROJ_NAME})
-MESSAGE(" + Adding test ${PROJ_NAME} ")				# In info
+MESSAGE(" + Adding ${PROJ_NAME} ")				# In info
 
 # Include directories with headers
 #-----------------------------------------------------------------------#
@@ -13,7 +13,6 @@ INCLUDE_DIRECTORIES( ${${PROJ_MAIN_NAME}_PATH_MAIN}/code/include )
 #-----------------------------------------------------------------------#
 file(GLOB ${PROJ_NAME}_INCLUDE
    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/include/*.rc
 )
 
 file(GLOB ${PROJ_NAME}_SRC
@@ -32,4 +31,5 @@ target_link_libraries( ${PROJ_NAME}
 	simpleJSON
 )
 
+#PRINTBASICINFO(${PROJ_MAIN_NAME})						# Macro cmake_tools to print, uncomment to add info
 MESSAGE(" - Project ${PROJ_NAME} added!")					# Out info
