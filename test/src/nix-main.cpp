@@ -29,6 +29,8 @@
 #include "JSON.h"
 #include "functions.h"
 
+#include <stdio.h>
+
 using namespace std;
 
 // Print out function

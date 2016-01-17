@@ -1,6 +1,6 @@
 # Header
 #-----------------------------------------------------------------------#
-SET(PROJ_NAME SimpleJSON_test)
+SET(PROJ_NAME simpleJSON_test)
 PROJECT(${PROJ_NAME})
 MESSAGE(" + Adding test ${PROJ_NAME} ")				# In info
 
@@ -8,7 +8,6 @@ MESSAGE(" + Adding test ${PROJ_NAME} ")				# In info
 #-----------------------------------------------------------------------#
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/include )			# This project includes
 INCLUDE_DIRECTORIES( ${${PROJ_MAIN_NAME}_PATH_MAIN}/code/include )
-
 
 # Source, macro to find all files. If you add more, regenerate project
 #-----------------------------------------------------------------------#
@@ -30,7 +29,7 @@ add_executable(${PROJ_NAME} ${${PROJ_NAME}_INCLUDE} ${${PROJ_NAME}_SRC} ${${PROJ
 # Link libraries with Project
 #-----------------------------------------------------------------------#
 target_link_libraries( ${PROJ_NAME}
-	SimpleJSON
+	simpleJSON
 )
 
 MESSAGE(" - Project ${PROJ_NAME} added!")					# Out info
