@@ -19,10 +19,10 @@ public:
     void startArray();
     void finishArray();
 
-    void addBool(std::string id, int data);
+    void addBool(std::string id, bool data);
 	void addInt(std::string id, int data);
     void addUnsignedInt(std::string id, unsigned int data);
-	void addFloat(std::string id, unsigned int data);
+	void addFloat(std::string id, float data);
     void addString(std::string id, std::string data);
     void addArray(std::string id, std::string data);
 	void addArrayData(std::string data);

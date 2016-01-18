@@ -1,5 +1,4 @@
 #include "JSONString.h"
-#include <string>
 
 void JSONString::startJSON()
 {
@@ -26,10 +25,18 @@ void JSONString::finishArray()
     _jsonstring += "]";
 }
 
-void JSONString::addBool(std::string id, int data)
+void JSONString::addBool(std::string id, bool data)
 {
 	std::ostringstream os;
-	os << data ;
+
+	if(data)
+	{
+		os << "true" ;
+
+	}else
+	{
+		os << "false";
+	}
 
     _jsonstring += "\"";
     _jsonstring += id;
@@ -62,7 +69,7 @@ void JSONString::addUnsignedInt(std::string id, unsigned int data)
     _jsonstring += os.str();
 }
 
-void JSONString::addFloat(std::string id, unsigned int data)
+void JSONString::addFloat(std::string id, float data)
 {
 	std::ostringstream os;
 	os << data ;
