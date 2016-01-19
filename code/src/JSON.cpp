@@ -113,10 +113,10 @@ JSONValue *JSON::Parse(const wchar_t *data)
  *
  * @return std::wstring Returns a JSON encoded string representation of the given value
  */
-std::wstring JSON::Stringify(const JSONValue *value)
+std::wstring JSON::Stringify(const JSONValue *value, bool const prettyprint)
 {
 	if (value != NULL)
-		return value->Stringify();
+		return value->Stringify(prettyprint);
 	else
 		return L"";
 }
@@ -130,15 +130,10 @@ std::wstring JSON::Stringify(const JSONValue *value)
  *
  * @return std::string Returns a JSON encoded string representation of the given value
  */
-std::string JSON::StringifyToString(const JSONValue *value)
+std::string JSON::StringifyToString(const JSONValue *value, bool const prettyprint)
 {
-	if (value != NULL){
-					 
-		std::string result;
-		result.assign(value->Stringify().begin(), value->Stringify().end());
-		return result;
-	}
-		
+	if (value != NULL)	
+		return value->StringifyToString(prettyprint);
 	else
 		return "";
 }
