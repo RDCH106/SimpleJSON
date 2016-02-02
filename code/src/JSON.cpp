@@ -24,7 +24,8 @@
 
 #include "JSON.h"
 
-//namespace simplejson{
+namespace simplejson
+{
 	/**
 	 * Blocks off the public constructor
 	 *
@@ -296,4 +297,4 @@
 	  }
 		return decimal;
 	}
-//}	// namespace simplejson
+}	// namespace simplejson

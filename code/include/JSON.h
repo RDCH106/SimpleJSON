@@ -26,8 +26,10 @@
 // Win32 incompatibilities
 #if defined(WIN32) && !defined(__GNUC__)
 	#define wcsncasecmp _wcsnicmp
+	namespace simplejson{
 	static inline bool isnan(double x) { return x != x; }
 	static inline bool isinf(double x) { return !isnan(x) && isnan(x - x); }
+}
 #endif
 
 #include <vector>
@@ -44,7 +46,7 @@
 #if defined(__APPLE__) && __DARWIN_C_LEVEL < 200809L || (defined(WIN32) && defined(__GNUC__)) || defined(ANDROID)
 	#include <wctype.h>
 	#include <wchar.h>
-
+namespace simplejson{
 	static inline int wcsncasecmp(const wchar_t *s1, const wchar_t *s2, size_t n)
 	{
 		int lc1  = 0;
@@ -67,8 +69,10 @@
 
 		return 0;
 	}
+}
 #endif
 
+namespace simplejson{
 // Simple function to check a string 's' has at least 'n' characters
 static inline bool simplejson_wcsnlen(const wchar_t *s, size_t n) {
 	if (s == 0)
@@ -82,31 +86,32 @@ static inline bool simplejson_wcsnlen(const wchar_t *s, size_t n) {
 
 	return true;
 }
-
-
-// Custom types
-class JSONValue;
-typedef std::vector<JSONValue*> JSONArray;
-typedef std::map<std::wstring, JSONValue*> JSONObject;
+}
 
 #include "JSONValue.h"
 
-//namespace simplejson{
-class JSON
-{
-	friend class JSONValue;
 
-	public:
-		static JSONValue* Parse(const char *data);
-		static JSONValue* Parse(const wchar_t *data);
-		static std::wstring Stringify(const JSONValue *value, bool const prettyprint = false);
-		static std::string StringifyToString(const JSONValue *value, bool const prettyprint = false);
-	protected:
-		static bool SkipWhitespace(const wchar_t **data);
-		static bool ExtractString(const wchar_t **data, std::wstring &str);
-		static double ParseInt(const wchar_t **data);
-		static double ParseDecimal(const wchar_t **data);
-	private:
-		JSON();
-};
-//}	// namespace simplejson
+
+namespace simplejson
+{
+	// Custom types
+	class JSONValue;
+
+	class JSON
+	{
+		friend class JSONValue;
+
+		public:
+			static JSONValue* Parse(const char *data);
+			static JSONValue* Parse(const wchar_t *data);
+			static std::wstring Stringify(const JSONValue *value, bool const prettyprint = false);
+			static std::string StringifyToString(const JSONValue *value, bool const prettyprint = false);
+		protected:
+			static bool SkipWhitespace(const wchar_t **data);
+			static bool ExtractString(const wchar_t **data, std::wstring &str);
+			static double ParseInt(const wchar_t **data);
+			static double ParseDecimal(const wchar_t **data);
+		private:
+			JSON();
+	};
+}	// namespace simplejson
