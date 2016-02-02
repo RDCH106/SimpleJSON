@@ -21,9 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-#ifndef _JSONVALUE_H_
-#define _JSONVALUE_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -89,5 +87,3 @@ class JSONValue
 		JSONArray array_value;
 		JSONObject object_value;
 };
-
-#endif

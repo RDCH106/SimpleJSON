@@ -21,9 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-#ifndef _JSON_H_
-#define _JSON_H_
+#pragma once
 
 // Win32 incompatibilities
 #if defined(WIN32) && !defined(__GNUC__)
@@ -46,7 +44,7 @@
 #if defined(__APPLE__) && __DARWIN_C_LEVEL < 200809L || (defined(WIN32) && defined(__GNUC__)) || defined(ANDROID)
 	#include <wctype.h>
 	#include <wchar.h>
-	
+
 	static inline int wcsncasecmp(const wchar_t *s1, const wchar_t *s2, size_t n)
 	{
 		int lc1  = 0;
@@ -85,6 +83,7 @@ static inline bool simplejson_wcsnlen(const wchar_t *s, size_t n) {
 	return true;
 }
 
+
 // Custom types
 class JSONValue;
 typedef std::vector<JSONValue*> JSONArray;
@@ -92,10 +91,11 @@ typedef std::map<std::wstring, JSONValue*> JSONObject;
 
 #include "JSONValue.h"
 
+
 class JSON
 {
 	friend class JSONValue;
-	
+
 	public:
 		static JSONValue* Parse(const char *data);
 		static JSONValue* Parse(const wchar_t *data);
@@ -109,5 +109,3 @@ class JSON
 	private:
 		JSON();
 };
-
-#endif

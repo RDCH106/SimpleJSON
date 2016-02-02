@@ -353,7 +353,7 @@ JSONValue::JSONValue(const std::wstring &m_string_value)
 JSONValue::JSONValue(const std::string &m_string_value)
 {
 	wchar_t wstr[2048];  //Internal buffer of 2048 chars
-	mbstowcs(wstr, m_string_value.c_str(), sizeof(wstr));  
+	mbstowcs(wstr, m_string_value.c_str(), sizeof(wstr));
 	type = JSONType_String;
 	string_value = std::wstring(wstr);
 }
@@ -802,7 +802,7 @@ std::wstring JSONValue::Stringify(bool const prettyprint) const
 std::string JSONValue::StringifyToString(bool const prettyprint) const
 {
 	size_t const indentDepth = prettyprint ? 1 : 0;
-						 
+
 	std::wstring data = StringifyImpl(indentDepth);
 	std::string result;
 	result.assign(data.begin(), data.end());
