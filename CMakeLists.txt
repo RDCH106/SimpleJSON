@@ -24,7 +24,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 SET(${PROJ_MAIN_NAME}_PATH_MAIN 	${CMAKE_SOURCE_DIR} 					          CACHE PATH "This directory contains initial Path")
 SET(${PROJ_MAIN_NAME}_PATH_LIBS 	${PROJECT_BINARY_DIR}/bin				        CACHE PATH "This directory contains all libs")
 SET(${PROJ_MAIN_NAME}_PATH_EXE 		${PROJECT_BINARY_DIR}/bin				        CACHE PATH "This directory contains executables")
-#SET(${PROJ_MAIN_NAME}_PATH_3RDPARTY 	${CMAKE_SOURCE_DIR}/3rdParty 				CACHE PATH "This directory contains 3rdparty libraries")
+SET(${PROJ_MAIN_NAME}_PATH_3RDPARTY 	${CMAKE_SOURCE_DIR}/3rdParty 				CACHE PATH "This directory contains 3rdparty libraries")
 SET(${PROJ_MAIN_NAME}_PATH_INSTALL 	${PROJECT_BINARY_DIR}/install/${PROJ_MAIN_NAME} 	CACHE PATH "This directory to install prebuilt")
 
 # Configure options
@@ -64,18 +64,22 @@ IF(NOT TARGET_PLATFORM STREQUAL TARGET_NONE)
   ######################################################################################
   PRINTADVANCEDINFO(${PROJ_MAIN_NAME})
 
+  IF(${PROJ_MAIN_NAME}_BUILD_TEST)
+    ADD_SUBDIRECTORY(3rdParty/googletest)
+  ENDIF()
+
   ADD_SUBDIRECTORY("code")
 
   IF(${PROJ_MAIN_NAME}_BUILD_TEST)
-    MESSAGE(" Info: Test enabled!")
+    MESSAGE("Info: Test enabled!")
     ADD_SUBDIRECTORY(test)
   ELSE()
-    MESSAGE(" Info: Test disabled!")
+    MESSAGE("Info: Test disabled!")
   ENDIF()
 
 ELSE()
   message(FATAL_ERROR " TARGET no autodetected. Please, select a TARGET manually. ")
 ENDIF()
-		
+
 #PRINTBASICINFO(${PROJ_MAIN_NAME})						# Macro cmake_tools to print, uncomment to add info
 MESSAGE(" * Solution ${PROJ_MAIN_NAME} done!")					# Out info
