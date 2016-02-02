@@ -27,7 +27,7 @@
 #include <string>
 
 #include "JSON.h"
-
+//namespace simplejson{
 class JSON;
 
 enum JSONType { JSONType_Null, JSONType_String, JSONType_Bool, JSONType_Number, JSONType_Array, JSONType_Object };
@@ -87,3 +87,4 @@ class JSONValue
 		JSONArray array_value;
 		JSONObject object_value;
 };
+//} namespace simplejson

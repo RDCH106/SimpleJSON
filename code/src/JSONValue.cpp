@@ -33,6 +33,8 @@
 
 #include "JSONValue.h"
 
+//namespace simplejson{
+
 // Macros to free an array/object
 #define FREE_ARRAY(x) { JSONArray::iterator iter; for (iter = x.begin(); iter != x.end(); iter++) { delete *iter; } }
 #define FREE_OBJECT(x) { JSONObject::iterator iter; for (iter = x.begin(); iter != x.end(); iter++) { delete (*iter).second; } }
@@ -978,3 +980,4 @@ std::wstring JSONValue::Indent(size_t depth)
 	std::wstring indentStr(depth * indent_step, ' ');
 	return indentStr;
 }
+//} // namespace simplejson

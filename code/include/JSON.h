@@ -91,7 +91,7 @@ typedef std::map<std::wstring, JSONValue*> JSONObject;
 
 #include "JSONValue.h"
 
-
+//namespace simplejson{
 class JSON
 {
 	friend class JSONValue;
@@ -109,3 +109,4 @@ class JSON
 	private:
 		JSON();
 };
+//}	// namespace simplejson
