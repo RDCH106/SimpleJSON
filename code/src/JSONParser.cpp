@@ -16,7 +16,10 @@
 
 namespace simplejson
 {
-  bool parseIntoJSONObject(std::string &jsondata, JSONObject &result)
+  // Set false if you don't want logs
+  bool JSONParser::_verbose = true;
+
+  bool JSONParser::parseIntoJSONObject(std::string &jsondata, JSONObject &result)
   {
       // JSON message
   		JSONValue *value = JSON::Parse(jsondata.c_str());

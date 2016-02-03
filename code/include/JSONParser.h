@@ -32,5 +32,8 @@ namespace simplejson
 		// File management
 		static void readFile(const std::string &absoluteFileName, std::string &completeFile);
 		static void createFile(const std::string &absoluteFileName, std::string &completeFile);
+
+	private:
+		static bool _verbose;
 	};
 }	// namespace simplejson
