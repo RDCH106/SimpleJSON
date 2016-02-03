@@ -8,7 +8,14 @@ namespace simplejson
 	class JSONParser
 	{
 	public:
-		// Functions
+		/**
+		* \brief Process jsondata to get a JSONObject with info
+		*
+		* \param[in] json in a string
+		* \param[in|out] a empty JSONObject
+		* \return TRUE if Success
+		*/
+		static bool parseIntoJSONObject(std::string &jsondata, JSONObject &result);
 		/**
 		* \brief Extract JSONArray from JSONObject if is posible
 		*
@@ -21,5 +28,9 @@ namespace simplejson
 		static bool extractBool(JSONObject &json, std::wstring &id, bool &result, bool recursive = false);
 		static bool extractString(JSONObject &json, std::wstring &id, std::string &result, bool recursive = false);
 		static bool extractInt(JSONObject &json, std::wstring &id, int &result, bool recursive = false);
+
+		// File management
+		static void readFile(const std::string &absoluteFileName, std::string &completeFile);
+		static void createFile(const std::string &absoluteFileName, std::string &completeFile);
 	};
 }	// namespace simplejson
