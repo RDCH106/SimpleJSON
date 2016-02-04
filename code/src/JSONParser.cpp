@@ -4,7 +4,7 @@
 
 #include "JSONParser.h"
 
-//#include "logger.h"
+#include "logger.h"
 #define LOG_TAG "JSONParser"
 
 #include <sys/types.h>
@@ -26,13 +26,13 @@ namespace simplejson
 
       if(!result.empty())
       {
-        //LOGW("JSONObject provided is not empty");
+        LOGW("JSONObject provided is not empty to parseIntoJSONObject");
       }
 
   		// Did it go wrong?
   		if (value == NULL)
   		{
-  				//LOGW("jsondata is not a valid JSON");
+  				LOGW("jsondata is not a valid JSON");
           return false;
   		}
   		else
@@ -40,7 +40,7 @@ namespace simplejson
   			// Retrieve the main object
   			if (value->IsObject() == false)
   			{
-  				//LOGW("No value into JSON");
+  				LOGW("Content is not an JSONObject to parseIntoJSONObject");
   				return false;
   			}
   			else
@@ -51,11 +51,43 @@ namespace simplejson
       // free memory
   		delete value;
   }
+  bool JSONParser::parseIntoJSONArray(std::string &jsondata, JSONArray &result)
+  {
+      // JSON message
+  		JSONValue *value = JSON::Parse(jsondata.c_str());
+
+      if(!result.empty())
+      {
+        LOGW("JSONObject provided is not empty to parseIntoJSONObject");
+      }
+
+  		// Did it go wrong?
+  		if (value == NULL)
+  		{
+  				LOGW("jsondata is not a valid JSON");
+          return false;
+  		}
+  		else
+  		{
+  			// Retrieve the main object
+  			if (value->IsArray() == false)
+  			{
+  				LOGW("Content is not an JSONObject to parseIntoJSONObject");
+  				return false;
+  			}
+  			else
+  			{
+  				result = value->AsArray();
+  			}
+  		}
+      // free memory
+  		delete value;
+  }
     bool JSONParser::extractJSONArray(JSONObject &json, std::wstring &id, JSONArray &result, bool recursive)
     {
       if(recursive)
       {
-        //LOGE("Recursive not supported yet");
+        LOGE("Recursive not supported yet");
         return false;
       }
       if (json[id]->IsArray())
@@ -69,7 +101,7 @@ namespace simplejson
     {
       if(recursive)
       {
-        //LOGE("Recursive not supported yet");
+        LOGE("Recursive not supported yet");
         return false;
       }
       if (json.find(id) != json.end() && json[id]->IsObject())
@@ -83,7 +115,7 @@ namespace simplejson
     {
       if(recursive)
       {
-        //LOGE("Recursive not supported yet");
+        LOGE("Recursive not supported yet");
         return false;
       }
       if (json.find(id) != json.end() && json[id]->IsBool())
@@ -97,7 +129,7 @@ namespace simplejson
     {
       if(recursive)
       {
-        //LOGE("Recursive not supported yet");
+        LOGE("Recursive not supported yet");
         return false;
       }
       if (json.find(id) != json.end() && json[id]->IsString())
@@ -108,11 +140,38 @@ namespace simplejson
   		}
   		return false;
     }
+    bool JSONParser::extractStringPairs(JSONObject &json, StringPairArray &result, bool recursive)
+    {
+      if(recursive)
+      {
+        LOGE("Recursive not supported yet");
+        return false;
+      }
+      bool findSomething = false;
+      for( JSONObject::iterator it = json.begin(); it != json.end(); ++it )
+      {
+        if((*it).second->IsString())
+        {
+          StringPair data;
+          std::string firstdata;
+          std::string seconddata;
+          std::wstring wfirstdata = (*it).first;
+          std::wstring wseconddata = (*it).second->AsString();
+          firstdata.assign(wfirstdata.begin(), wfirstdata.end());
+          seconddata.assign(wseconddata.begin(), wseconddata.end());
+          data.first = firstdata;
+          data.second = seconddata;
+          result.push_back(data);
+          findSomething = true;
+        }
+      }
+      return findSomething;
+    }
 		bool JSONParser::extractInt(JSONObject &json, std::wstring &id, int &result, bool recursive)
     {
       if(recursive)
       {
-        //LOGE("Recursive not supported yet");
+        LOGE("Recursive not supported yet");
         return false;
       }
       if (json.find(id) != json.end() && json[id]->IsNumber())
@@ -122,7 +181,19 @@ namespace simplejson
   		}
   		return false;
     }
-
+  bool JSONParser::existID(JSONObject &json, std::wstring &id, bool recursive)
+  {
+    if(recursive)
+    {
+      LOGE("Recursive not supported yet");
+      return false;
+    }
+    if (json.find(id) != json.end())
+    {
+      return true;
+    }
+    return false;
+  }
   void JSONParser::readFile(const std::string &absoluteFileName, std::string &completeFile)
 	{
 		//LOGD("Opening file: %s", absoluteFileName.c_str());
