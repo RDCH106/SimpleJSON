@@ -21,73 +21,74 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-#ifndef _JSONVALUE_H_
-#define _JSONVALUE_H_
+#pragma once
 
 #include <vector>
 #include <string>
 
 #include "JSON.h"
 
-class JSON;
-
-enum JSONType { JSONType_Null, JSONType_String, JSONType_Bool, JSONType_Number, JSONType_Array, JSONType_Object };
-
-class JSONValue
+namespace simplejson
 {
-	friend class JSON;
+	class JSON;
 
-	public:
-		JSONValue(/*NULL*/);
-		JSONValue(const wchar_t *m_char_value);
-		JSONValue(const std::wstring &m_string_value);
-		JSONValue(const std::string &m_string_value);
-		JSONValue(bool m_bool_value);
-		JSONValue(double m_number_value);
-		JSONValue(const JSONArray &m_array_value);
-		JSONValue(const JSONObject &m_object_value);
-		JSONValue(const JSONValue &m_source);
-		~JSONValue();
+	enum JSONType { JSONType_Null, JSONType_String, JSONType_Bool, JSONType_Number, JSONType_Array, JSONType_Object };
 
-		bool IsNull() const;
-		bool IsString() const;
-		bool IsBool() const;
-		bool IsNumber() const;
-		bool IsArray() const;
-		bool IsObject() const;
+	class JSONValue
+	{
+		friend class JSON;
+		typedef std::vector<JSONValue*> JSONArray;
+		typedef std::map<std::wstring, JSONValue*> JSONObject;
 
-		const std::wstring &AsString() const;
-		const std::string AsCharString() const;
-		bool AsBool() const;
-		double AsNumber() const;
-		const JSONArray &AsArray() const;
-		const JSONObject &AsObject() const;
+		public:
+			JSONValue(/*NULL*/);
+			JSONValue(const wchar_t *m_char_value);
+			JSONValue(const std::wstring &m_string_value);
+			JSONValue(const std::string &m_string_value);
+			JSONValue(bool m_bool_value);
+			JSONValue(double m_number_value);
+			JSONValue(const JSONArray &m_array_value);
+			JSONValue(const JSONObject &m_object_value);
+			JSONValue(const JSONValue &m_source);
+			~JSONValue();
 
-		std::size_t CountChildren() const;
-		bool HasChild(std::size_t index) const;
-		JSONValue *Child(std::size_t index);
-		bool HasChild(const wchar_t* name) const;
-		JSONValue *Child(const wchar_t* name);
-		std::vector<std::wstring> ObjectKeys() const;
+			bool IsNull() const;
+			bool IsString() const;
+			bool IsBool() const;
+			bool IsNumber() const;
+			bool IsArray() const;
+			bool IsObject() const;
 
-		std::wstring Stringify(bool const prettyprint = false) const;
-		std::string StringifyToString(bool const prettyprint = false) const;
+			const std::wstring &AsString() const;
+			const std::string AsCharString() const;
+			bool AsBool() const;
+			double AsNumber() const;
+			const JSONArray &AsArray() const;
+			const JSONObject &AsObject() const;
 
-	protected:
-		static JSONValue *Parse(const wchar_t **data);
+			std::size_t CountChildren() const;
+			bool HasChild(std::size_t index) const;
+			JSONValue *Child(std::size_t index);
+			bool HasChild(const wchar_t* name) const;
+			JSONValue *Child(const wchar_t* name);
+			std::vector<std::wstring> ObjectKeys() const;
 
-	private:
-		static std::wstring StringifyString(const std::wstring &str);
-		std::wstring StringifyImpl(size_t const indentDepth) const;
-		static std::wstring Indent(size_t depth);
+			std::wstring Stringify(bool const prettyprint = false) const;
+			std::string StringifyToString(bool const prettyprint = false) const;
 
-		JSONType type;
-		std::wstring string_value;
-		bool bool_value;
-		double number_value;
-		JSONArray array_value;
-		JSONObject object_value;
-};
+		protected:
+			static JSONValue *Parse(const wchar_t **data);
 
-#endif
+		private:
+			static std::wstring StringifyString(const std::wstring &str);
+			std::wstring StringifyImpl(size_t const indentDepth) const;
+			static std::wstring Indent(size_t depth);
+
+			JSONType type;
+			std::wstring string_value;
+			bool bool_value;
+			double number_value;
+			JSONArray array_value;
+			JSONObject object_value;
+	};
+} //namespace simplejson

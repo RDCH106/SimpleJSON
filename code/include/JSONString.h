@@ -1,5 +1,4 @@
-#ifndef _JSONSTRING_H_
-#define _JSONSTRING_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -7,9 +6,11 @@
 #include <sstream>
 #include <stdio.h>
 
-class JSONString
+namespace simplejson
 {
-public:
+  class JSONString
+  {
+  public:
     JSONString():_jsonstring(""){};
 
     void startJSON();       // Only limits, no use for internal json subobjects
@@ -20,22 +21,22 @@ public:
     void finishArray();
 
     void addBool(std::string id, bool data);
-	void addInt(std::string id, int data);
+    void addInt(std::string id, int data);
     void addUnsignedInt(std::string id, unsigned int data);
-	void addFloat(std::string id, float data);
+    void addFloat(std::string id, float data);
     void addString(std::string id, std::string data);
+    void addStringSHA1(std::string id, std::string data);
     void addArray(std::string id, std::string data);
-	void addArrayData(std::string data);
-	void addObject(std::string id, std::string data);
-	void addObjectData(std::string data);
+    void addArrayData(std::string data);
+    void addObject(std::string id, std::string data);
+    void addObjectData(std::string data);
 
     std::string getString() { return _jsonstring; };
     const char* getChar() { return _jsonstring.c_str(); };
 
     void printString();
 
-private:
+  private:
     std::string _jsonstring;
-};
-
-#endif // END _JSONSTRING_H_
+  };
+} // namespace simplejson
