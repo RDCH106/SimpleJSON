@@ -5,6 +5,9 @@
 
 namespace simplejson
 {
+	typedef std::vector<JSONValue*> JSONArray;
+	typedef std::map<std::wstring, JSONValue*> JSONObject;
+
 	class JSONParser
 	{
 	public:
