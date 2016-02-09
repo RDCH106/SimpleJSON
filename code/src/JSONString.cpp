@@ -3,27 +3,32 @@
 
 namespace simplejson
 {
-  void JSONString::startJSON()
+  void JSONString::startJSONObject()
   {
       _jsonstring += "{";
   }
 
-  void JSONString::finishJSON()
-  {
-      _jsonstring += "}";
-  }
-
-  void JSONString::continueJSON()
+  void JSONString::continueJSONObject()
   {
       _jsonstring += ",";
   }
 
-  void JSONString::startArray()
+  void JSONString::endJSONObject()
+  {
+      _jsonstring += "}";
+  }
+
+  void JSONString::startJSONArray()
   {
       _jsonstring += "[";
   }
 
-  void JSONString::finishArray()
+  void JSONString::continueJSONArray()
+  {
+      _jsonstring += ",";
+  }
+
+  void JSONString::endJSONArray()
   {
       _jsonstring += "]";
   }
@@ -36,7 +41,8 @@ namespace simplejson
   	{
   		os << "true" ;
 
-  	}else
+  	}
+    else
   	{
   		os << "false";
   	}
@@ -107,7 +113,7 @@ namespace simplejson
       _jsonstring += "\"";
   }
 
-  void JSONString::addArray(std::string id, std::string data)
+  void JSONString::addJSONArray(std::string id, std::string data)
   {
       _jsonstring += "\"";
       _jsonstring += id;
@@ -116,12 +122,12 @@ namespace simplejson
       _jsonstring += data;
   }
 
-  void JSONString::addArrayData(std::string data)
+  void JSONString::addJSONArrayData(std::string data)
   {
       _jsonstring += data;
   }
 
-  void JSONString::addObject(std::string id, std::string data)
+  void JSONString::addJSONObject(std::string id, std::string data)
   {
       _jsonstring += "\"";
       _jsonstring += id;
@@ -130,7 +136,7 @@ namespace simplejson
       _jsonstring += data;
   }
 
-  void JSONString::addObjectData(std::string data)
+  void JSONString::addJSONObjectData(std::string data)
   {
       _jsonstring += data;
   }
