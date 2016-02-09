@@ -10,6 +10,9 @@ namespace simplejson
 	typedef std::pair<std::string, std::string> StringPair;
 	typedef std::vector<StringPair > StringPairArray;
 
+/**
+* \brief Auxiliary class to manage JSONObject/JSONArray/JSONString automatically 
+*/
 	class JSONParser
 	{
 	public:
